@@ -1,10 +1,32 @@
 #include <msp430.h> 
+#include "typedef.h"
+#include "init_display.h"
+#include "lib_math.h"
+#include "lib_RNG.h"
+#include "lib_lcd.h"
+#include "delay.h"
+#include "const_data.h"
 
+
+#define C_BORDER    0x0005
+#define s_num       110
+
+void clean_area(uint);
+void init_star(uchar);
+void get_star_pos(uchar);
+
+uchar space_char=1;     // space between chars
+struct point3d_schar dots3d[s_num];
+
+// help vars
+uint x3=0;
+sint x=0,y=0,x1=0,y1=0,x2=0,y2=0,r=0,i=0,z=0;
 /**
  * main.c
  */
 
 int counter=0,timehms[3]={0,0,0};
+uchar cache[5];
 
 void clock_init()
 {
@@ -49,9 +71,12 @@ int main(void)
     WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
     _BIS_SR(GIE);
     init();
-    P1DIR |= BIT0;
-    P1OUT |= BIT0;
-    while (1);
+    init_USCI();                // init. USCI (SPI)
+    init_LCD(C_BLACK);          // init. Display
+    while (1)
+    {
+        draw_string(10, 20, "ff", C_RED, TRANSP, 0, 0);
+    }
 }
 
 #pragma vector=TIMER0_A0_VECTOR
@@ -66,7 +91,6 @@ __interrupt void Timer_A_1()
     }
     if(counter==50)
     {
-        P1OUT ^= BIT0;
         counter = 0;
         timehms[2]++;
         if (timehms[2]==60)
@@ -80,4 +104,24 @@ __interrupt void Timer_A_1()
             }
         }
     }
+}
+
+void get_star_pos(uchar pos)
+{
+    x=dots3d[pos].x*100/dots3d[pos].z+120;
+    y=dots3d[pos].y*100/dots3d[pos].z+160;
+}
+
+void init_star(uchar pos)
+{
+    dots3d[pos].x=get_rand(-80,80);
+    dots3d[pos].y=get_rand(-80,80);
+    dots3d[pos].z=get_rand(20,127);
+}
+
+void clean_area(uint color)
+{
+    x=46;
+    while(x++<274)
+        fill_rect(0,239,x,x,color);
 }
