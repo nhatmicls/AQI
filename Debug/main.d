@@ -9,7 +9,6 @@ main.obj: C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.3.LTS/include/intrinsics
 main.obj: ../typedef.h
 main.obj: ../init_display.h
 main.obj: ../lib_math.h
-main.obj: ../lib_RNG.h
 main.obj: ../lib_lcd.h
 main.obj: ../delay.h
 main.obj: ../const_data.h
@@ -27,7 +26,6 @@ C:/ti/ccsv8/tools/compiler/ti-cgt-msp430_18.1.3.LTS/include/intrinsics_legacy_un
 ../typedef.h: 
 ../init_display.h: 
 ../lib_math.h: 
-../lib_RNG.h: 
 ../lib_lcd.h: 
 ../delay.h: 
 ../const_data.h: 

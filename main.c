@@ -2,7 +2,6 @@
 #include "typedef.h"
 #include "init_display.h"
 #include "lib_math.h"
-#include "lib_RNG.h"
 #include "lib_lcd.h"
 #include "delay.h"
 #include "const_data.h"
@@ -15,7 +14,9 @@ void clean_area(uint);
 void init_star(uchar);
 void get_star_pos(uchar);
 
-char index1[5];
+char index1[5],index2[5],index3[5];
+int inputde[3]={0,0,0};
+int cache1=0;
 
 uchar space_char=1;     // space between chars
 struct point3d_schar dots3d[s_num];
@@ -74,14 +75,23 @@ void LCD_init()
     UCA0CTL1=UCSSEL_2;
 }
 
+void ADC_init()
+{
+    ADC10CTL0=SREF_0+ADC10SHT_1+MSC+ADC10ON+ADC10IE;
+    ADC10CTL1=INCH_2+ADC10DIV_4+ADC10SSEL_3+CONSEQ_0;
+    ADC10AE0|=BIT1+BIT2;
+    ADC10DTC1=0x2;
+}
+
 void PM25_init()
 {
-
+    P2DIR |= BIT0;
+    P2OUT |= BIT0;
 }
 
 void MQ135_init()
 {
-
+    P2DIR &= ~BIT1;
 }
 
 void init()
@@ -89,6 +99,7 @@ void init()
     time_init();
     clock_init();
     LCD_init();
+    ADC_init();
     PM25_init();
     MQ135_init();
 }
@@ -100,24 +111,33 @@ int main(void)
     init();
     init_USCI();                // init. USCI (SPI)
     init_LCD(C_BLACK);          // init. Display
-    refe(0);
+    refe();
     while(1)
     {
         _no_operation();
-        if(timehms[2]==10)
-            refe(1);
     }
 }
 
-void refe(int n)
+void refe()
 {
-    if(n==1)
-        clean_area((C_BLACK));
+    P2OUT &= ~BIT0;
+    //wait_us(1);
+    ADC10CTL0&=~ENC;
+    ADC10SA=(int)inputde;
+    ADC10CTL0|=ENC+ADC10SC;
+    P2OUT |= BIT0;
+    fill_display(240, 320, C_BLACK);
     draw_string(2, 2, string_00, C_RED, TRANSP, 1, 1);
-    wait_us(1);
     draw_string(2, 15, string_01, C_RED, TRANSP, 1, 1);
+    draw_string(2, 28, string_02, C_RED, TRANSP, 1, 1);
     itoa(timehms[2],index1,10);
-    draw_string(35, 2, index1, C_RED, TRANSP, 1, 1);
+    itoa(inputde[1],index2,10);
+    itoa(inputde[0],index3,10);
+    draw_string(40, 2, index1, C_RED, TRANSP, 1, 1);
+    draw_string(40, 15, index2, C_RED, TRANSP, 1, 1);
+    draw_string(40, 28, index3, C_RED, TRANSP, 1, 1);
+    if(inputde[0]>250)
+        draw_string(2, 50, string_03, C_RED, TRANSP, 3, 3);
 }
 
 #pragma vector=TIMER0_A0_VECTOR
@@ -138,12 +158,14 @@ __interrupt void Timer_A_1()
         {
             timehms[1]++;
             timehms[2]=0;
+            refe();
             if (timehms[1]==60)
             {
                 timehms[1]=0;
                 timehms[0]++;
             }
         }
+            refe();
     }
 }
 

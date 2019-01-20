@@ -90,9 +90,9 @@ const uchar scroller_00[]={"You're watching a new **xdec** production! MSP430G25
 const uchar scroller_01[][11]={"* declis *","*presents*"};
 const uchar scroller_02[]={"**** JJAM.de - Java & JS ** || ** HUGO ELIAS - Computer Graphics ****"};
 const uchar string_00[]={"Time: "};
-const uchar string_01[]={"PM2.5:"};
-const uchar string_02[]={"~RESPECT TO~"};
-const uchar string_03[]={"LAURA!"};
+const uchar string_01[]={"PM2.5: "};
+const uchar string_02[]={"Air: "};
+const uchar string_03[]={"Warning!"};
 const uchar string_04[]={"smile again! (:"};
 const uchar string_05[][40]={"MSP430G2553 (16k Flash/512B RAM/16MHz)",
 							 " ILI9341 TFT-Display (16bit,240x320) ",

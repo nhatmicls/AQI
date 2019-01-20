@@ -79,7 +79,7 @@ void init_USCI(void)
 	
   	UCB0CTL1|=UCSWRST;					// USCI in reset state
   	// SPI Master, 8bit, MSB first, synchronous mode
-  	UCB0CTL0|=UCMST+UCSYNC+UCCKPH+UCMSB;
+  	UCB0CTL0|=UCMST+UCSYNC+UCCKPH+UCMSB;		
   	UCB0CTL1|=UCSSEL_2;					// USCI CLK-SRC=SMCLK=~8MHz
   	UCB0CTL1&=~UCSWRST;					// USCI released for operation
   	IE2|=UCB0TXIE;						// enable TX interrupt

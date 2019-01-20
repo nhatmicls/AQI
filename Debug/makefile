@@ -12,7 +12,6 @@ GEN_CMDS__FLAG :=
 ORDERED_OBJS += \
 "./delay.obj" \
 "./init_display.obj" \
-"./lib_RNG.obj" \
 "./lib_lcd.obj" \
 "./lib_math.obj" \
 "./main.obj" \
@@ -159,8 +158,8 @@ AQI.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "delay.obj" "init_display.obj" "lib_RNG.obj" "lib_lcd.obj" "lib_math.obj" "main.obj" 
-	-$(RM) "delay.d" "init_display.d" "lib_RNG.d" "lib_lcd.d" "lib_math.d" "main.d" 
+	-$(RM) "delay.obj" "init_display.obj" "lib_lcd.obj" "lib_math.obj" "main.obj" 
+	-$(RM) "delay.d" "init_display.d" "lib_lcd.d" "lib_math.d" "main.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

@@ -15,7 +15,6 @@
 #include "ascii_char.h"
 #include "lib_lcd.h"
 #include "lib_math.h"
-#include "lib_RNG.h"
 #include "delay.h"
 
 uint byte,w_index,h_index;
@@ -353,6 +352,6 @@ void set_instruction(uchar register_sel, uchar number)
 	else P1OUT&=~DC;			// command
 	
 	P1OUT&=~CS;					// start condition
-	while(IFG2&UCB0TXIFG);		// TX buffer ready?
+	//while(IFG2&UCB0TXIFG);		// TX buffer ready?
   	UCB0TXBUF=number;			// start transmission
 }

@@ -11,7 +11,6 @@ CMD_SRCS += \
 C_SRCS += \
 ../delay.c \
 ../init_display.c \
-../lib_RNG.c \
 ../lib_lcd.c \
 ../lib_math.c \
 ../main.c 
@@ -19,7 +18,6 @@ C_SRCS += \
 C_DEPS += \
 ./delay.d \
 ./init_display.d \
-./lib_RNG.d \
 ./lib_lcd.d \
 ./lib_math.d \
 ./main.d 
@@ -27,7 +25,6 @@ C_DEPS += \
 OBJS += \
 ./delay.obj \
 ./init_display.obj \
-./lib_RNG.obj \
 ./lib_lcd.obj \
 ./lib_math.obj \
 ./main.obj 
@@ -35,7 +32,6 @@ OBJS += \
 OBJS__QUOTED += \
 "delay.obj" \
 "init_display.obj" \
-"lib_RNG.obj" \
 "lib_lcd.obj" \
 "lib_math.obj" \
 "main.obj" 
@@ -43,7 +39,6 @@ OBJS__QUOTED += \
 C_DEPS__QUOTED += \
 "delay.d" \
 "init_display.d" \
-"lib_RNG.d" \
 "lib_lcd.d" \
 "lib_math.d" \
 "main.d" 
@@ -51,7 +46,6 @@ C_DEPS__QUOTED += \
 C_SRCS__QUOTED += \
 "../delay.c" \
 "../init_display.c" \
-"../lib_RNG.c" \
 "../lib_lcd.c" \
 "../lib_math.c" \
 "../main.c" 
