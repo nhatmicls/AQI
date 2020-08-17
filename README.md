@@ -1,2 +1,2 @@
 # AQI
-Check Air quality and gas detection
+Use MSP430 for checking air quality and gas detection
